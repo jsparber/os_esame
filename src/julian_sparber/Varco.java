@@ -71,7 +71,10 @@ public class Varco {
                         + " Controllore in attesa by " + c.getName());
                 this.svegliaCon.await();
             }
-
+            //decremento il numero di disabili nella coda
+            if (this.disabileInAttesa > 0) {
+                this.disabileInAttesa--;
+            }
             this.inCoda--;
         } finally {
             this.lock.unlock();
@@ -83,8 +86,6 @@ public class Varco {
         try {
 
             if (this.disabileInAttesa > 0) {
-                //decremento il numero di disabili nella coda
-                this.disabileInAttesa--;
                 System.out.println(c.getInfo()
                         + " Controllo un disabile by " + c.getName());
                 Thread.sleep(200);
